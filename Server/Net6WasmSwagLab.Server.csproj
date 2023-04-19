@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="6.0.14" />
+    <PackageReference Include="NSwag.AspNetCore" Version="13.18.2" />
   </ItemGroup>
 
   <ItemGroup>

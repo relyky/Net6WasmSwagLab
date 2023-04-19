@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Net6WasmSwagLab.Shared;
+using Net6WasmSwagLab.DTO;
 
 namespace Net6WasmSwagLab.Server.Controllers
 {
