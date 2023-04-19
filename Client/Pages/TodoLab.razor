@@ -1,0 +1,59 @@
+﻿@page "/todo"
+@inject SwagClient.TodoApi bizApi
+
+<PageTitle>Todo list</PageTitle>
+
+<h1>Todo list</h1>
+
+<p>實作簡單的 Todo 清單。(未完待續…)</p>
+
+<button class="btn btn-primary" @onclick=HandleQuery>刷新</button>
+
+@if (todoList == null)
+{
+  <p><em>Loading...</em></p>
+}
+else
+{
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Sn</th>
+        <th>Description</th>
+        <th>Done</th>
+        <th>CreateDtm</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach (var item in todoList)
+      {
+        <tr>
+          <td>@item.Sn</td>
+          <td>@item.Description</td>
+          <td>@item.Done</td>
+          <td>@item.CreateDtm</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}
+
+@code {
+  private List<TodoDto>? todoList;
+
+  protected override async Task OnInitializedAsync()
+  {
+    await HandleQuery();
+  }
+
+  async Task HandleQuery()
+  {
+    var args = new TodoQryAgs
+    {
+      Msg = "gogo",
+      Amt = 999
+    };
+
+    todoList = await bizApi.QryDataListAsync(args);
+  }
+}

@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Net6WasmSwagLab.Server", "Server\Net6WasmSwagLab.Server.csproj", "{124A3760-493C-4BAC-8681-8EABC1994489}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Net6WasmSwagLab.Server", "Server\Net6WasmSwagLab.Server.csproj", "{124A3760-493C-4BAC-8681-8EABC1994489}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Net6WasmSwagLab.Client", "Client\Net6WasmSwagLab.Client.csproj", "{8752E198-8A80-45EB-9BD2-8F2E0096D161}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Net6WasmSwagLab.Client", "Client\Net6WasmSwagLab.Client.csproj", "{8752E198-8A80-45EB-9BD2-8F2E0096D161}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Net6WasmSwagLab.Shared", "Shared\Net6WasmSwagLab.Shared.csproj", "{F9D22222-B4A3-4D88-9A82-868555AA4102}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Net6WasmSwagLab.Shared", "Shared\Net6WasmSwagLab.Shared.csproj", "{F9D22222-B4A3-4D88-9A82-868555AA4102}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
