@@ -17,7 +17,6 @@
       * 生成的碼與 NSwagStudio 是一樣的，只是版本可能落後一點點。
       * 設定好後可以自動更新 Swagger client code。 
       * `Unchase OpenAPI (Swagger) Connected Service VS2022` 設定參數與 NSwagStudio 一模一樣。
-* Blazor WASM APP
 * `NSwag.AspNetCore v13.18.2`   
   * [Get started with NSwag and ASP.NET Core](https://learn.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-nswag?view=aspnetcore-6.0&tabs=visual-studio)
   * for Swagger server side 產生 Swagger 網頁與 Swaggger 描述檔 `swagger.json / swagger.nswag`。
@@ -26,6 +25,7 @@
  * [Unchase OpenAPI (Swagger) Connected Service VS2022](https://marketplace.visualstudio.com/items?itemName=Unchase.unchaseopenapiconnectedservicevs22)
  * 為 Visual Studio 2022 的延伸模組
  * for 生成相應的 Swagger client code。
+ * 其核心是 NSwag。
  * 生成的碼與 NSwagStudio 是一樣的，只是版本可能落後一點點。
  * 設定好後可以自動更新 Swagger client code。 
  * `Unchase OpenAPI (Swagger) Connected Service VS2022` 參數設定與 NSwagStudio 一模一樣。
