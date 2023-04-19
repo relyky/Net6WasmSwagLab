@@ -1,0 +1,188 @@
+{
+  "x-generator": "NSwag v13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v10.0.0.0))",
+  "swagger": "2.0",
+  "info": {
+    "title": "我的 Swagger API 練習",
+    "description": "我的 Swagger API 練習。使用 NSwag 生成。",
+    "version": "v1"
+  },
+  "host": "localhost:7177",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/api/Todo/QryDataList": {
+      "post": {
+        "tags": [
+          "Todo"
+        ],
+        "operationId": "Todo_QryDataList",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "name": "args",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TodoQryAgs"
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TodoDto"
+              }
+            }
+          },
+          "400": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ErrMsg"
+            }
+          }
+        }
+      }
+    },
+    "/WeatherForecast": {
+      "get": {
+        "tags": [
+          "WeatherForecast"
+        ],
+        "operationId": "WeatherForecast_Get",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/WeatherForecast"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "TodoDto": {
+      "type": "object",
+      "required": [
+        "sn",
+        "description",
+        "done",
+        "createDtm"
+      ],
+      "properties": {
+        "sn": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "description": {
+          "type": "string"
+        },
+        "done": {
+          "type": "boolean"
+        },
+        "createDtm": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "ErrMsg": {
+      "type": "object",
+      "required": [
+        "message",
+        "severity"
+      ],
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "severity": {
+          "$ref": "#/definitions/LogLevel"
+        }
+      }
+    },
+    "LogLevel": {
+      "type": "integer",
+      "description": "",
+      "x-enumNames": [
+        "Trace",
+        "Debug",
+        "Information",
+        "Warning",
+        "Error",
+        "Critical",
+        "None"
+      ],
+      "enum": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    "TodoQryAgs": {
+      "type": "object",
+      "required": [
+        "amt",
+        "msg"
+      ],
+      "properties": {
+        "amt": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "WeatherForecast": {
+      "type": "object",
+      "required": [
+        "date",
+        "temperatureC",
+        "temperatureF"
+      ],
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "temperatureC": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "temperatureF": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    }
+  }
+}
