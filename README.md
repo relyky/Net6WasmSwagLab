@@ -44,8 +44,11 @@ NSwag 在後端、前端都有支援且 NSwag 也支授 .NET6 了所以 NSwag �
 # 小小瑕疵
 在此時此版 NSwag 的 JSON 序列化仍必需依賴 `Newtonsoft.Json`。
 
+# NSwagStudio 設定紀錄
+參考這裡[NSwagStudio 使用紀錄](https://rely-ky.gitbook.io/qu-zhi-wu-wang-lu-gitbook2/nswagstudio-shi-yong-ji-lu)
+
 # 關鍵原碼紀錄
-## Swagger Server code smaple 
+## Swagger Server code sample 
 ``` csharp
 // File: Server/Controllers/TodoController.cs
 
@@ -83,10 +86,95 @@ public class TodoController : ControllerBase
 }
 
 ```
+
 ## Blaozr client sample
 ``` csharp
 // File: Client/Pages/TodoLab.razor
 
-string a = "go go go";
+@page "/todo"
+@inject SwagClient.TodoApi bizApi //------ 注入 Swagger API client
+
+<PageTitle>Todo list</PageTitle>
+...省略(render page)...
+
+@code {
+  List<TodoDto>? todoList = null;
+  string errMsg = string.Empty;
+  bool f_testFail = false;
+
+  protected override async Task OnInitializedAsync()
+  {
+    await HandleQuery();
+  }
+
+  async Task HandleQuery()
+  {
+    try
+    {
+      errMsg = string.Empty;
+      todoList = null;
+
+      var args = new TodoQryAgs {
+        Msg = f_testFail ? "測試邏輯失敗" : "今天天氣真好",
+        Amt = 999
+      };
+
+      todoList = await bizApi.QryDataListAsync(args); //------ 叫用 Swagger API
+    }
+    catch (SwagClient.ApiException<ErrMsg> ex)
+    {
+      // 邏輯失敗!
+      errMsg = $"ApiException: {ex.Result.Severity}-{ex.Result.Message}";
+    }
+    catch (Exception ex)
+    {
+      // 例外失敗!
+      errMsg = "EXCEPTION: " + ex.Message;
+    }
+  }
+}
 ```
+
 ## Swagger client code sample
+請直接參考原始碼:
+>
+> Client/Connected Services/OpenAPIService/OpenAPI.cs
+>
+
+## 註冊 SeagClient 
+註冊成 DI service 以可以注入(@inject)。  
+``` csharp
+// File: Client/Program.cs
+
+using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Net6WasmSwagLab.Client;
+using System.Reflection;
+
+var builder = WebAssemblyHostBuilder.CreateDefault(args);
+builder.RootComponents.Add<App>("#app");
+builder.RootComponents.Add<HeadOutlet>("head::after");
+
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+
+//## 註冊 SwagClient API。 --- 相關 SwagClient 資源備好後才能在此註冊
+var asm = Assembly.GetAssembly(typeof(App));
+foreach (var swagClientType in asm.GetTypes().Where(c => c.Namespace == "SwagClient" && c.Name.EndsWith("Api")))
+{
+  builder.Services.AddScoped(swagClientType, provider =>
+  {
+    var http = provider.GetRequiredService<HttpClient>();
+    var baseUrl = builder.HostEnvironment.BaseAddress;
+    var swagClient = Activator.CreateInstance(swagClientType, http);
+    swagClientType.GetProperty("BaseUrl")?.SetValue(swagClient, baseUrl);
+    return swagClient;
+
+    //※ 需考慮引入的 NSwag 版本而調整。此例是["NSwag", "13.18.0.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.1.0))")]
+    //## 等同生成下方程式碼實體
+    // var swagClient = new SwagClient.WeatherForecastApi(http);
+    // swagClient.BaseUrl = baseUrl;
+  });
+}
+
+await builder.Build().RunAsync();
+```
