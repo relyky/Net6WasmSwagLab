@@ -139,7 +139,7 @@ public class TodoController : ControllerBase
 > Client/Connected Services/OpenAPIService/OpenAPI.cs
 >
 
-## 註冊 SeagClient 
+## 註冊 SwagClient 
 註冊成 DI service 以可以注入(@inject)。  
 ``` csharp
 // File: Client/Program.cs
